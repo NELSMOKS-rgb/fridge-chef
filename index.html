@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en-NZ">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Fridge Chef</title>
+<meta name="description" content="Tell it what's in your fridge and cupboard, get meals you can cook now.">
+<meta name="theme-color" content="#140c24">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png" type="image/png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Fridge Chef">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand"><img src="icons/icon-192.png" alt="" class="logo"><div><h1>Fridge Chef</h1><p id="subline">What's in your kitchen?</p></div></div>
+  <button class="icon-btn" id="settingsBtn" aria-label="Settings">⚙️</button>
+</header>
+
+<main>
+  <!-- KITCHEN -->
+  <section id="tab-kitchen" class="tab active">
+    <div class="seg" role="tablist">
+      <button class="seg-btn active" data-list="fridge">🧊 Fridge <span class="count" id="cnt-fridge">0</span></button>
+      <button class="seg-btn" data-list="cupboard">🥫 Cupboard <span class="count" id="cnt-cupboard">0</span></button>
+    </div>
+
+    <div class="adder">
+      <input id="addInput" type="text" inputmode="text" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="Add to fridge… e.g. mince, capsicum">
+      <button id="addBtn" class="btn primary" aria-label="Add">Add</button>
+      <ul id="suggest" class="suggest" hidden></ul>
+    </div>
+
+    <div class="block">
+      <div class="block-head"><h2 id="myListTitle">In your fridge</h2><button class="link" id="clearList">Clear</button></div>
+      <div id="myItems" class="chips mine"></div>
+      <p id="emptyHint" class="hint">Nothing here yet. Type above or tap the quick picks below.</p>
+    </div>
+
+    <div class="block">
+      <div class="block-head"><h2>Quick picks</h2><span class="muted small">tap to add or remove</span></div>
+      <div id="staples" class="chips"></div>
+    </div>
+
+    <button id="goCook" class="btn primary big">🍳 Show what I can cook</button>
+
+    <div class="block" id="shopBlock">
+      <div class="block-head"><h2>🛒 Shopping list</h2><button class="link" id="clearShop">Clear</button></div>
+      <div id="shopItems" class="shop"></div>
+      <p id="shopHint" class="hint">Missing items you add from a recipe show up here. Tick them when you've bought them and they go into your kitchen.</p>
+    </div>
+  </section>
+
+  <!-- COOK -->
+  <section id="tab-cook" class="tab">
+    <div class="filters">
+      <div class="chips scroll" id="typeFilters"></div>
+      <div class="toggles">
+        <button class="toggle" id="fQuick">⏱ Under 30 min</button>
+        <button class="toggle" id="fVeg">🌱 Vegetarian</button>
+      </div>
+      <input id="recipeSearch" type="search" placeholder="Search recipes…" autocomplete="off">
+    </div>
+    <div id="onlineStatus" class="status" hidden></div>
+    <div id="results"></div>
+  </section>
+</main>
+
+<nav class="bottom">
+  <button class="nav-btn active" data-tab="kitchen"><span>🧺</span>Kitchen</button>
+  <button class="nav-btn" data-tab="cook"><span>🍽️</span>Cook <b class="badge" id="readyBadge" hidden>0</b></button>
+</nav>
+
+<!-- Recipe sheet -->
+<div id="sheet" class="sheet" hidden aria-modal="true" role="dialog">
+  <div class="sheet-inner">
+    <div class="sheet-bar"><button class="icon-btn" id="sheetClose" aria-label="Back">←</button><span id="sheetSource" class="muted small"></span></div>
+    <div id="sheetBody"></div>
+  </div>
+</div>
+
+<!-- Settings -->
+<div id="settings" class="sheet" hidden aria-modal="true" role="dialog">
+  <div class="sheet-inner">
+    <div class="sheet-bar"><button class="icon-btn" id="settingsClose" aria-label="Back">←</button><strong>Settings</strong></div>
+    <div class="settings-body">
+      <label class="row"><input type="checkbox" id="sBasics"> <span><b>Always have salt, pepper & water</b><br><small class="muted">Don't count them when matching recipes.</small></span></label>
+      <label class="row"><input type="checkbox" id="sOnline"> <span><b>Extra online recipes (TheMealDB)</b><br><small class="muted">Free, no account needed. Adds more ideas when you have internet. Built-in recipes always work offline.</small></span></label>
+      <div class="row col"><b>Backup</b><div class="btns"><button class="btn" id="exportBtn">Copy my lists</button><button class="btn" id="importBtn">Paste lists</button></div></div>
+      <p class="muted small" id="aboutLine"></p>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="toast" hidden></div>
+
+<script src="vocab.js"></script>
+<script src="recipes.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
